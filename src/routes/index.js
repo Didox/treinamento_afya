@@ -8,6 +8,8 @@ const LoginMiddleware = require('../middlewares/login');
 router.get('/', HomeController.index);
 router.post('/logar', LoginController.logar);
 router.get('/usuarios', LoginMiddleware, UsuariosController.index);
-router.post('/usuarios/registar', LoginMiddleware, UsuariosController.criar);
+router.post('/usuarios', LoginMiddleware, UsuariosController.criar);
+router.put('/usuarios/:id', LoginMiddleware, UsuariosController.update);
+router.delete('/usuarios/:id', LoginMiddleware, UsuariosController.delete);
 
 module.exports = router;

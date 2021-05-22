@@ -31,7 +31,7 @@ module.exports = class Usuario{
   }
 
   async salvar(){
-    if(this.id && this.id > 0){
+    if(this.id && parseInt(this.id) > 0){
       await db.execute("update usuarios set nome=$1, email=$2, senha=$3 where id=$4", [
         this.nome,
         this.email,
