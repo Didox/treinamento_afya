@@ -1,7 +1,7 @@
 const db = require("../config/db");
 
 module.exports = class Usuario{
-  constructor(obj){
+  constructor(obj = {}){
     this.id = obj.id
     this.nome = obj.nome
     this.email = obj.email

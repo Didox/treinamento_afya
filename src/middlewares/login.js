@@ -1,12 +1,12 @@
 const Cookie = require("../helpers/cookie")
 
 module.exports = (req, res, next) => {
-  let usuarioId = Cookie.get('usuarioLogado', req)
-  if(!usuarioId){
+  let usuario = Cookie.get('usuarioLogado', req)
+  if(!usuario){
     res.redirect("/")
     return;
   }
 
-  req.usuarioId = usuarioId;
+  req.usuario = JSON.parse(unescape(usuario));
   next();
 }
