@@ -1,14 +1,18 @@
 
 const Cookie = require("../helpers/cookie")
+const Usuario = require("../models/usuario")
 
 module.exports = {
   index: (request, response) => {
     response.render('login/index', {erro:undefined});
   },
-  logar: (request, response) => {
+  logar: async (request, response) => {
     const {email, senha} = request.body;
-    if(email == "afya@gama.com" && senha == "123456"){
-      Cookie.set('usuarioLogado', 1, response, 600000);
+    let usuarios = await Usuario.buscaPorEmailSenha(email, senha)
+    if(usuarios.length > 0){
+      let usuario = new Usuario(usuarios[0]);
+      usuario.senha = undefined;
+      Cookie.set('usuarioLogado', JSON.stringify(usuario), response, 600000);
       response.redirect("/home");
       return;
     }
