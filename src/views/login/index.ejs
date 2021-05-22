@@ -58,6 +58,11 @@
                                                     Me</label>
                                             </div>
                                         </div>
+                                        <% if(erro){ %>
+                                            <div class="alert alert-danger">
+                                                <%= erro %>
+                                            </div>
+                                        <% } %>
                                         <button class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
