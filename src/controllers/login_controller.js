@@ -1,26 +1,21 @@
 
-const Cookie = require("../helpers/cookie")
 const Usuario = require("../models/usuario")
+const JwtToken = require("../helpers/jwtToken")
 
 module.exports = {
-  index: (request, response) => {
-    response.render('login/index', {erro:undefined});
-  },
   logar: async (request, response) => {
     const {email, senha} = request.body;
     let usuarios = await Usuario.buscaPorEmailSenha(email, senha)
     if(usuarios.length > 0){
-      let usuario = new Usuario(usuarios[0]);
+      let usuario = usuarios[0];
       usuario.senha = undefined;
-      Cookie.set('usuarioLogado', JSON.stringify(usuario), response, 600000);
-      response.redirect("/home");
+      usuario.token = JwtToken.fabricaToken(usuario)
+      response.status(200).send(usuario);
       return;
     }
-    // response.redirect('/');
-    response.render('login/index', {erro: "Login ou senha inválidos"});
-  },
-  logout: (request, response) => {
-    Cookie.set('usuarioLogado', undefined, response, -1);
-    response.redirect("/");
+    
+    response.status(401).send({
+      mensagem: "Login ou senha inválidos"
+    });
   }
 }

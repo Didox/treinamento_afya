@@ -5,12 +5,9 @@ const HomeController = require('../controllers/home_controller');
 const UsuariosController = require('../controllers/usuarios_controller');
 const LoginMiddleware = require('../middlewares/login');
 
-router.get('/', LoginController.index);
-router.get('/usuarios/criar', UsuariosController.form);
-router.post('/usuarios/registar', UsuariosController.criar);
+router.get('/', HomeController.index);
 router.post('/logar', LoginController.logar);
-router.get('/logout', LoginController.logout);
-router.get('/utilities-color', LoginMiddleware, HomeController.utilitiesColor);
-router.get('/home', LoginMiddleware, HomeController.index);
+router.get('/usuarios', LoginMiddleware, UsuariosController.index);
+router.post('/usuarios/registar', LoginMiddleware, UsuariosController.criar);
 
 module.exports = router;

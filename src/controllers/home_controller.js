@@ -1,11 +1,7 @@
-const Cookie = require("../helpers/cookie")
 const HomeController = {
   index: (request, response) => {
-    response.render('home/index', {usuario: request.usuario});
-  },
-  utilitiesColor: (request, response) => {
-    response.render('home/utilitiesColor', {usuario: request.usuario});
-  },
+    response.status(200).send({mensagem: "Uma API do afya labs"});
+  }
 }
 
 module.exports = HomeController;
